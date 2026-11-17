@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>BloodHelp - Sign Up</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #fff5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background: white;
+            width: 350px;
+            padding: 35px;
+            border-radius: 12px;
+            box-shadow: 0 3px 15px #00000020;
+        }
+
+        h1 {
+            color: #c62828;
+            text-align: center;
+        }
+
+        p {
+            text-align: center;
+        }
+
+        label {
+            display: block;
+            margin-top: 18px;
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            margin-top: 8px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            box-sizing: border-box;
+        }
+
+        button {
+            width: 100%;
+            padding: 13px;
+            margin-top: 25px;
+            background: #c62828;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .error {
+            color: red;
+            text-align: center;
+        }
+
+        .success {
+            color: green;
+            text-align: center;
+        }
+
+        a {
+            color: #c62828;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>❤️ BloodHelp</h1>
+
+    <p>Create Your Account</p>
+
+    <p class="error"
+       th:if="${error}"
+       th:text="${error}">
+    </p>
+
+    <p class="success" th:if="${param.success}">
+        Account created successfully!
+    </p>
+
+    <form th:action="@{/signup}"
+          th:object="${user}"
+          method="post">
+
+        <label>Username</label>
+
+        <input type="text"
+               th:field="*{username}"
+               required
+               minlength="3"
+               maxlength="30">
+
+        <label>Password</label>
+
+        <input type="password"
+               th:field="*{password}"
+               required
+               minlength="8">
+
+        <button type="submit">
+            Create Account
+        </button>
+
+    </form>
+
+    <p>
+        Already have an account?
+        <a href="/login">Login</a>
+    </p>
+
+    <p>
+        <a href="/">Back to Home</a>
+    </p>
+
+</div>
+
+</body>
+</html>

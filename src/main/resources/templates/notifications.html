@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Notifications | BloodHelp</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+            margin: 0;
+            padding: 25px;
+        }
+
+        .container {
+            max-width: 750px;
+            margin: auto;
+        }
+
+        h1 {
+            color: #c62828;
+            text-align: center;
+        }
+
+        .notification {
+            background: white;
+            padding: 18px;
+            margin: 15px 0;
+            border-radius: 10px;
+            box-shadow: 0 2px 6px #ddd;
+        }
+
+        .unread {
+            border-left: 5px solid #c62828;
+        }
+
+        .read {
+            border-left: 5px solid #aaa;
+        }
+
+        .message {
+            color: #444;
+            line-height: 1.5;
+        }
+
+        button {
+            background: #c62828;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .back {
+            display: inline-block;
+            margin-top: 15px;
+            color: #c62828;
+            text-decoration: none;
+        }
+
+        .empty {
+            text-align: center;
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>My Notifications</h1>
+
+    <div th:if="${#lists.isEmpty(notifications)}"
+         class="empty">
+        <p>You have no notifications yet.</p>
+    </div>
+
+    <div th:each="notification : ${notifications}"
+         class="notification"
+         th:classappend="${notification.read} ? ' read' : ' unread'">
+
+        <h3 th:text="${notification.title}"></h3>
+
+        <p class="message"
+           th:text="${notification.message}"></p>
+
+        <form th:if="${!notification.read}"
+              th:action="@{/notifications/read/{id}(id=${notification.id})}"
+              method="post">
+
+            <button type="submit">Mark as Read</button>
+
+        </form>
+
+        <p th:if="${notification.read}">
+            <small>Already read</small>
+        </p>
+
+    </div>
+
+    <a href="/dashboard" class="back">Back to Dashboard</a>
+
+</div>
+
+</body>
+</html>

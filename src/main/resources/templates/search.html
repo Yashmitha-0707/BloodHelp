@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Donors - BloodHelp</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #fff0f0;
+            padding: 25px;
+        }
+
+        .container {
+            max-width: 650px;
+            margin: 30px auto;
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #c62828;
+        }
+
+        input, select, button {
+            width: 100%;
+            padding: 12px;
+            margin-top: 12px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background: #c62828;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 6px;
+        }
+
+        table {
+            width: 100%;
+            margin-top: 25px;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+
+        th {
+            background: #c62828;
+            color: white;
+        }
+
+        .message {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+<div class="container">
+
+    <h1>❤️ Find Blood Donors</h1>
+
+    <form th:action="@{/search/results}" method="get">
+
+        <label>Select Required Blood Group</label>
+
+        <select name="bloodGroup" required>
+            <option value="">Select Blood Group</option>
+            <option value="A+" th:selected="${bloodGroup == 'A+'}">A+</option>
+            <option value="A-" th:selected="${bloodGroup == 'A-'}">A-</option>
+            <option value="B+" th:selected="${bloodGroup == 'B+'}">B+</option>
+            <option value="B-" th:selected="${bloodGroup == 'B-'}">B-</option>
+            <option value="AB+" th:selected="${bloodGroup == 'AB+'}">AB+</option>
+            <option value="AB-" th:selected="${bloodGroup == 'AB-'}">AB-</option>
+            <option value="O+" th:selected="${bloodGroup == 'O+'}">O+</option>
+            <option value="O-" th:selected="${bloodGroup == 'O-'}">O-</option>
+        </select>
+
+        <label>Enter City (Optional)</label>
+
+        <input type="text"
+               name="city"
+               placeholder="Example: Vijayawada"
+               th:value="${city}">
+
+        <button type="submit">Search Donors</button>
+    </form>
+
+    <p class="message" th:if="${donors != null}"
+       th:text="'Search results for ' + ${bloodGroup}">
+    </p>
+
+    <p class="message"
+       th:if="${donors != null and #lists.isEmpty(donors)}">
+        No donors found for this blood group and city.
+    </p>
+
+    <table th:if="${donors != null and !#lists.isEmpty(donors)}">
+        <tr>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Blood Group</th>
+            <th>City</th>
+        </tr>
+
+        <tr th:each="donor : ${donors}">
+            <td th:text="${donor.name}"></td>
+            <td th:text="${donor.age}"></td>
+            <td th:text="${donor.bloodGroup}"></td>
+            <td th:text="${donor.city}"></td>
+        </tr>
+    </table>
+
+    <p class="message">
+        <a th:href="@{/}">Back to Home</a>
+    </p>
+
+</div>
+</body>
+</html>

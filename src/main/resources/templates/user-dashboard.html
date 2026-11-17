@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>My Dashboard | BloodHelp</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #fff5f5;
+        }
+
+        header {
+            background: #c62828;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: 30px auto;
+            padding: 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 22px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px #ddd;
+        }
+
+        h2 {
+            color: #c62828;
+        }
+
+        .links a {
+            display: inline-block;
+            background: #c62828;
+            color: white;
+            padding: 11px 16px;
+            margin: 6px;
+            text-decoration: none;
+            border-radius: 6px;
+        }
+
+        .edit-btn {
+            display: inline-block;
+            background: #c62828;
+            color: white;
+            padding: 10px 18px;
+            text-decoration: none;
+            border-radius: 6px;
+            margin-top: 12px;
+        }
+
+        .logout {
+            background: #333 !important;
+        }
+
+        .donor-details {
+            border: 1px solid #eee;
+            padding: 15px;
+            margin-top: 12px;
+            border-radius: 8px;
+        }
+
+        .status {
+            color: green;
+            font-weight: bold;
+        }
+
+        .not-registered {
+            color: #c62828;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>❤️ BloodHelp</h1>
+    <p>My User Dashboard</p>
+</header>
+
+<div class="container">
+
+    <div class="card">
+        <h2>Welcome, <span th:text="${username}"></span>!</h2>
+        <p>Manage your BloodHelp account here.</p>
+    </div>
+
+    <div class="card">
+        <h2>My Activities</h2>
+
+        <div class="links">
+            <a th:href="@{/register}">Become a Donor</a>
+            <a th:href="@{/search}">Search Donors</a>
+            <a th:href="@{/request}">Request Blood</a>
+            <a th:href="@{/notifications}">My Notifications</a>
+            <a th:href="@{/}">Home</a>
+            <a th:href="@{/logout}" class="logout">Logout</a>
+        </div>
+    </div>
+
+    <div class="card">
+
+        <h2>My Donor Details</h2>
+
+        <p class="status"
+           th:if="${hasDonorRegistration}">
+            You are registered as a blood donor!
+        </p>
+
+        <p class="not-registered"
+           th:unless="${hasDonorRegistration}">
+            You haven't registered as a donor yet.
+        </p>
+
+        <div th:if="${param.updated}"
+             class="status">
+            Your donor details were updated successfully!
+        </div>
+
+        <div th:each="donor : ${myDonors}"
+             class="donor-details">
+
+            <p>
+                <strong>Name:</strong>
+                <span th:text="${donor.name}"></span>
+            </p>
+
+            <p>
+                <strong>Age:</strong>
+                <span th:text="${donor.age}"></span>
+            </p>
+
+            <p>
+                <strong>Blood Group:</strong>
+                <span th:text="${donor.bloodGroup}"></span>
+            </p>
+
+            <p>
+                <strong>City:</strong>
+                <span th:text="${donor.city}"></span>
+            </p>
+
+            <a class="edit-btn"
+               th:href="@{/donors/edit/{id}(id=${donor.id})}">
+                Edit My Details
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

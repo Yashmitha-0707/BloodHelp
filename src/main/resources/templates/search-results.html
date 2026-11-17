@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Results | BloodHelp</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #fff0f0;
+            padding: 25px;
+        }
+
+        .container {
+            max-width: 750px;
+            margin: 30px auto;
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+        }
+
+        h1 {
+            color: #c62828;
+            text-align: center;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: center;
+        }
+
+        th {
+            background: #c62828;
+            color: white;
+        }
+
+        .message {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        a {
+            color: #c62828;
+        }
+    </style>
+</head>
+
+<body>
+<div class="container">
+
+    <h1>❤️ BloodHelp Search Results</h1>
+
+    <p class="message">
+        Blood Group:
+        <strong th:text="${bloodGroup}"></strong>
+    </p>
+
+    <p class="message" th:if="${city != null and !#strings.isEmpty(city)}">
+        City:
+        <strong th:text="${city}"></strong>
+    </p>
+
+    <p class="message"
+       th:if="${#lists.isEmpty(donors)}">
+        No donors found for the selected blood group and city.
+    </p>
+
+    <table th:unless="${#lists.isEmpty(donors)}">
+        <tr>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Blood Group</th>
+            <th>City</th>
+        </tr>
+
+        <tr th:each="donor : ${donors}">
+            <td th:text="${donor.name}"></td>
+            <td th:text="${donor.age}"></td>
+            <td th:text="${donor.bloodGroup}"></td>
+            <td th:text="${donor.city}"></td>
+        </tr>
+    </table>
+
+    <p class="message">
+        <a th:href="@{/search}">Search Again</a>
+        |
+        <a th:href="@{/}">Home</a>
+    </p>
+
+</div>
+</body>
+</html>

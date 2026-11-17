@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Request Submitted | BloodHelp</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #fff5f5;
+            text-align: center;
+            padding: 40px 15px;
+        }
+
+        .container {
+            background: white;
+            max-width: 500px;
+            margin: 50px auto;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px #0002;
+        }
+
+        h1 {
+            color: #c62828;
+        }
+
+        p {
+            line-height: 1.7;
+        }
+
+        a {
+            display: inline-block;
+            margin: 12px;
+            padding: 12px 22px;
+            background: #c62828;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+        }
+    </style>
+</head>
+
+<body>
+<div class="container">
+
+    <h1>Request Submitted!</h1>
+
+    <h2 th:text="${success}"></h2>
+
+    <p><strong>Name:</strong> <span th:text="${name}"></span></p>
+    <p><strong>Blood Group:</strong> <span th:text="${bloodGroup}"></span></p>
+    <p><strong>Phone:</strong> <span th:text="${phone}"></span></p>
+    <p><strong>Location:</strong> <span th:text="${location}"></span></p>
+    <p><strong>Units:</strong> <span th:text="${units}"></span></p>
+    <p><strong>Message:</strong> <span th:text="${message}"></span></p>
+
+    <a href="/">Back to Home</a>
+    <a href="/request">New Request</a>
+
+</div>
+</body>
+</html>

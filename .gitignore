@@ -1,0 +1,27 @@
+
+# Maven build files
+target/
+
+# Java compiled files
+*.class
+
+# Log files
+*.log
+
+# VS Code and IDE files
+.vscode/
+.idea/
+*.iml
+
+# Operating system files
+.DS_Store
+Thumbs.db
+
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
+
+# Local H2 database files
+*.mv.db
+*.trace.db

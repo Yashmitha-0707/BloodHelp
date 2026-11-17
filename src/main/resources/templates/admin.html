@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BloodHelp Admin Dashboard</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #fff5f5;
+            margin: 0;
+        }
+
+        header {
+            background: #c62828;
+            color: white;
+            padding: 25px;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 3px 12px #00000015;
+        }
+
+        h2 {
+            color: #c62828;
+        }
+
+        .count {
+            font-size: 35px;
+            font-weight: bold;
+        }
+
+        a {
+            display: inline-block;
+            background: #c62828;
+            color: white;
+            padding: 12px 20px;
+            text-decoration: none;
+            border-radius: 6px;
+        }
+
+        button {
+            margin-top: 25px;
+            padding: 12px 25px;
+            background: #333;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>❤️ BloodHelp Admin Dashboard</h1>
+    <p>Manage your BloodHelp application</p>
+</header>
+
+<div class="container">
+
+    <h2>Welcome, Admin!</h2>
+
+    <div class="cards">
+
+        <div class="card">
+            <h2>👥 Total Donors</h2>
+            <p class="count" th:text="${totalDonors}">0</p>
+            <a href="/donors">View Donors</a>
+        </div>
+
+        <div class="card">
+            <h2>🩸 Blood Requests</h2>
+            <p class="count" th:text="${totalRequests}">0</p>
+            <a href="/requests">View Requests</a>
+        </div>
+
+    </div>
+
+    <form th:action="@{/logout}" method="post">
+        <button type="submit">Logout</button>
+    </form>
+
+    <p>
+        <a href="/" style="margin-top:20px;">Back to Home</a>
+    </p>
+
+</div>
+
+</body>
+</html>
