@@ -1,9 +1,12 @@
 package com.bloodhelp;
-
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class BloodRequest {
@@ -73,4 +76,24 @@ public class BloodRequest {
     public void setContactNumber(String contactNumber) {
         this.contactNumber = contactNumber;
     }
+    private String registeredByUsername;
+
+@ManyToOne
+@JoinColumn(name = "registered_by_id")
+private AppUser registeredBy;
+public String getRegisteredByUsername() {
+    return registeredByUsername;
+}
+
+public void setRegisteredByUsername(String registeredByUsername) {
+    this.registeredByUsername = registeredByUsername;
+}
+
+public AppUser getRegisteredBy() {
+    return registeredBy;
+}
+
+public void setRegisteredBy(AppUser registeredBy) {
+    this.registeredBy = registeredBy;
+}
 }
