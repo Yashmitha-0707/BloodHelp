@@ -1,7 +1,9 @@
+
 package com.bloodhelp;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.userdetails.User;
@@ -11,6 +13,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.HttpStatusEntryPoint;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
+import org.springframework.security.web.csrf.CsrfTokenRequestAttributeHandler;
 
 @Configuration
 public class SecurityConfig {
@@ -54,6 +59,8 @@ public class SecurityConfig {
             HttpSecurity http) throws Exception {
 
         http
+            .cors(Customizer.withDefaults())
+
             .authorizeHttpRequests(auth -> auth
 
                 .requestMatchers(
@@ -64,22 +71,55 @@ public class SecurityConfig {
 
                 .requestMatchers("/admin").hasRole("ADMIN")
 
-.requestMatchers(
-    "/donors", "/requests", "/requests/**"
-).authenticated()
+                .requestMatchers("/api/donors/search").permitAll()
+
                 .requestMatchers(
-                    "/dashboard", "/donors/edit/**"
+                    "/api/csrf"
+                ).permitAll()
+
+                .requestMatchers(
+                    "/api/donors",
+                    "/api/donors/**"
                 ).authenticated()
-.requestMatchers("/notifications", "/notifications/**").authenticated()
-.requestMatchers("/h2-console/**").permitAll()
+
+                .requestMatchers(
+                    "/donors", "/requests", "/requests/**",
+                    "/dashboard", "/donors/edit/**",
+                    "/notifications", "/notifications/**"
+                ).authenticated()
+
+                .requestMatchers("/h2-console/**").permitAll()
+
                 .anyRequest().permitAll()
             )
-            .csrf(csrf -> csrf.ignoringRequestMatchers("/h2-console/**"))
-.headers(headers -> headers.frameOptions(frame -> frame.sameOrigin()))
+
+            // Return 401 for unauthenticated API requests
+            .exceptionHandling(ex -> ex
+                .defaultAuthenticationEntryPointFor(
+                    new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED),
+                    request -> request.getServletPath().startsWith("/api/")
+                )
+            )
+
+            .csrf(csrf -> csrf
+                .csrfTokenRepository(
+                    CookieCsrfTokenRepository.withHttpOnlyFalse()
+                )
+                .csrfTokenRequestHandler(
+                    new CsrfTokenRequestAttributeHandler()
+                )
+                .ignoringRequestMatchers("/h2-console/**")
+            )
+
+            .headers(headers -> headers
+                .frameOptions(frame -> frame.sameOrigin())
+            )
+
             .formLogin(form -> form
-    .loginPage("/login")
-    .permitAll()
-)
+                .loginPage("/login")
+                .permitAll()
+            )
+
             .logout(Customizer.withDefaults());
 
         return http.build();
