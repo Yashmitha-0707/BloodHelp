@@ -1,191 +1,194 @@
-# 🩸 BloodHelp
-### Connecting Blood Donors with People in Need
+# BloodHelp – Blood Donor & Emergency Assistance Platform
 
-## 📌 About the Project
+BloodHelp is a web-based application designed to connect people who need blood with available blood donors. It helps users find donors based on blood group and location, register as donors, and create blood requests during emergencies.
 
-BloodHelp is a web-based blood donor management and emergency blood assistance platform developed using Java and Spring Boot.
+The platform provides a simple way to make blood donation and emergency assistance more accessible.
 
-The main purpose of this project is to help people find potential blood donors during medical emergencies. Users can register as donors, search for donors based on blood group and location, and access donor contact information.
+## Features
 
-## 🎯 Objectives
+### Donor Management
+- Register as a blood donor.
+- View the list of registered donors.
+- Search and filter donors based on blood group.
+- View donor availability and verification status.
+- Contact donors through phone calls or WhatsApp.
+- Edit and delete your own donor registration.
+- Users can view all donors, but can manage only their own registrations.
 
-- Make finding blood donors easier.
-- Connect blood donors with people who need blood.
-- Reduce the time required to find potential donors during emergencies.
-- Encourage voluntary blood donation.
-- Provide a simple and user-friendly platform.
+### Blood Request Management
+- Create blood requests during emergencies.
+- View available blood requests.
+- Edit and delete your own blood requests.
+- Manage blood request details.
 
-## ✨ Features
+### User Authentication
+- User registration and login.
+- Secure authentication using Spring Security.
+- Dashboard for logged-in users.
+- User-specific donor management.
+- CSRF protection for secure requests.
 
-- User Registration and Login
-- User Dashboard
-- Become a Blood Donor
-- Donor Information Management
-- Search Donors by Blood Group
-- Search Donors by Location
-- Donor Verification
-- Emergency Blood Assistance
-- Donor Contact Options
-
-*Only list features that are implemented and tested in your current version.*
-
-## 🛠️ Technologies Used
+## Technologies Used
 
 | Technology | Purpose |
 |---|---|
-| Java | Backend Programming |
-| Spring Boot | Backend Framework |
-| Spring MVC | Web Request Handling |
-| Spring Data JPA | Database Operations |
-| Maven | Dependency Management |
-| Thymeleaf | Dynamic Web Pages |
-| HTML | Frontend Structure |
-| CSS | Frontend Styling |
-| JavaScript | Frontend Interactions |
-| H2 Database | Database (if configured) |
+| Next.js | Frontend development |
+| React | User interface |
+| TypeScript | Frontend programming |
+| Java | Backend development |
+| Spring Boot | REST API development |
+| Spring Security | Authentication and security |
+| Maven | Backend dependency management |
+| HTML & CSS | Web page structure and styling |
 
-## 📂 Project Structure
+## Project Structure
 
 ```text
 BloodHelp/
 │
-├── src/
-│   ├── main/
-│   │   ├── java/
-│   │   └── resources/
-│   │       ├── static/
-│   │       ├── templates/
-│   │       └── application.properties
-│   │
-│   └── test/
+├── frontend/
+│   ├── app/
+│   │   ├── dashboard/
+│   │   ├── donors/
+│   │   ├── login/
+│   │   ├── register/
+│   │   └── ...
+│   ├── package.json
+│   └── ...
 │
-├── .mvn/
-├── mvnw
-├── mvnw.cmd
+├── src/
+│   └── main/
+│       └── java/
+│           └── com/
+│               └── bloodhelp/
+│                   ├── BloodRequest.java
+│                   ├── BloodRequestApiController.java
+│                   ├── BloodRequestEditApiController.java
+│                   ├── DonorApiController.java
+│                   ├── DonorEditApiController.java
+│                   ├── DonorResponse.java
+│                   ├── DashboardApiController.java
+│                   ├── SignupApiController.java
+│                   ├── SecurityConfig.java
+│                   └── ...
+│
 ├── pom.xml
-├── .gitignore
 └── README.md
 ```
 
-## 💻 Requirements
+## Getting Started
 
-Before running this project, install:
+Follow these steps to run the project locally.
 
-- Java JDK (version compatible with the project)
-- Visual Studio Code or another Java IDE
-- Git
-- Internet connection for downloading Maven dependencies
+### Prerequisites
 
-## 🚀 How to Run the Project
+Install the following software:
 
-Follow these steps to run BloodHelp on your laptop.
+- Java Development Kit (JDK)
+- Maven
+- Node.js and npm
+- Visual Studio Code or another code editor
 
-### Step 1: Clone the Repository
-
-Open the terminal and execute:
+### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/YOUR-USERNAME/BloodHelp.git
+git clone YOUR_GITHUB_REPOSITORY_URL
 ```
 
-Replace YOUR-USERNAME with your GitHub username.
-
-### Step 2: Open the Project
+Navigate into the project folder:
 
 ```bash
-cd BloodHelp
+cd bloodhelp
 ```
 
-Open the folder in VS Code:
+### 2. Configure the Backend
 
-```bash
-code .
-```
-
-### Step 3: Configure the Database
-
-Open:
+Configure your database and application settings in:
 
 ```text
 src/main/resources/application.properties
 ```
 
-Configure the database according to the project settings.
+Make sure your database is running and the configuration matches your local environment.
 
-For H2, use the existing H2 configuration.
+### 3. Run the Backend
 
-For MySQL, install MySQL and configure the database URL, username, and password.
-
-Do not upload private database credentials.
-
-### Step 4: Run the Application
-
-For Windows:
+From the main project folder, execute:
 
 ```bash
-mvnw.cmd spring-boot:run
+mvn spring-boot:run
 ```
 
-For Linux/macOS:
-
-```bash
-./mvnw spring-boot:run
-```
-
-Wait until the Spring Boot application starts successfully.
-
-### Step 5: Open the Application
-
-Open your browser and visit:
+The Spring Boot backend runs at:
 
 ```text
 http://localhost:8080
 ```
 
-BloodHelp should now be running locally.
+### 4. Run the Frontend
 
-## 📸 Screenshots
+Open a new terminal and navigate to the frontend folder:
 
-Add screenshots of your actual application here.
-
-```markdown
-![Home Page](screenshots/home.png)
-
-![Login Page](screenshots/login.png)
-
-![Dashboard](screenshots/dashboard.png)
-
-![Donor Search](screenshots/search.png)
+```bash
+cd frontend
 ```
 
-## 🔐 Security
+Install the required dependencies:
 
-- Do not upload passwords or secret keys.
-- Do not expose real donor or patient information.
-- Validate user information before storing it.
-- Use secure authentication practices.
+```bash
+npm install
+```
 
-## 🔮 Future Enhancements
+Start the Next.js development server:
 
-- Email and SMS notifications.
-- Location-based donor search.
+```bash
+npm run dev
+```
+
+Open the application in your browser:
+
+```text
+http://localhost:3000
+```
+## Screenshotste
+
+### Home Page
+![Home Page](home.png)
+
+### Login Page
+![Login Page](login.png)
+
+
+
+### Search List
+![Donor List](donor.png)
+)
+
+### Dashboard
+![Dashboard](dashboard.png)
+## Application Architecture
+
+BloodHelp follows a frontend-backend architecture:
+
+- **Frontend:** Next.js and React provide the user interface.
+- **Backend:** Spring Boot handles application logic and REST API requests.
+- **Security:** Spring Security manages authentication and access control.
+- **Database:** Stores donor information, blood requests, and user-related data.
+
+The frontend communicates with the backend through HTTP requests.
+
+## Future Enhancements
+
+- Email or SMS notifications for emergency blood requests.
 - Improved donor verification.
-- Emergency request tracking.
-- Mobile application integration.
-- Cloud deployment.
+- Location-based donor discovery.
+- Real-time emergency request notifications.
+- Mobile application support.
 
-## 👩‍💻 Project Information
+## Purpose
 
-**Project Name:** BloodHelp
+The main objective of BloodHelp is to make finding blood donors easier and faster during emergencies. By connecting donors and people in need, the platform aims to encourage blood donation and support the community.
 
-**Project Type:** Web Application
+---
 
-**Domain:** Healthcare and Social Impact
-
-**Backend:** Java and Spring Boot
-
-**Frontend:** HTML, CSS, JavaScript and Thymeleaf
-
-## 📄 License
-
-This project is developed for educational purposes
+**Developed as a student project.**
